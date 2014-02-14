@@ -130,7 +130,7 @@ var makeObstacle=function(){
 		if(random(0,1)<0.1){
 			obstacleList.unshift(new particle(random(0,width),random(0,height),random(-3,3),random(-3,3)));
 		}
-		else if(random(0,1)<0.1){
+		else if(random(0,1)<0.8){
 			obstacleList.unshift(new obstacle());
 		}
 		else{
@@ -155,43 +155,13 @@ var UpdateObstacles= function(){
 };
 
 
-
-//var detectHit= function(){
-
-//	for(var ii=0;ii<obstacleList.length;ii++){
-//		if (sqrt(sq(abs(y-obstacleList[ii].y))+sq(abs(x-obstacleList[ii].x)))<3){
-//			background(255,0,0);
-//			health+=-1;
-//			obstacleList.splice(ii,ii+1);
-//			
-//		}
-//	}
-//
-//
-//};
-
-
-
-
 void draw(){
 
-
-	if (keyCode===67)
-            cpu = true;	
-	
-	
-	
-	
-	fill(255,255,255);
 	obSpeed+=0.001
 	spawnChance=obSpeed/10;
 	background(255,255,255);
-
 	makeObstacle();
-
 	UpdateObstacles();
-
-//	detectHit();
 	while(obstacleList.length>=150){
 		obstacleList.pop();
 		
