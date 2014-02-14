@@ -116,13 +116,30 @@ function bombb(){
 }
 
 
-
-
+//////Seeker obstacle/////////////////////////////////////////////////////////
+function seeker(){
+	this.x=width;
+	this.y=random(0,height);
+	this.colour= color(random(0,255),random(0,255),random(0,255));
+	this.move=function(){
+		this.x-=obSpeed;
+		if(y>this.y){
+			this.y+=0.3;
+		}
+		else{
+			this.y+=-0.3;
+		}
+	}
+	
+	
+	
+}
 
 //Inheritance part///////////////////////////////////////////////////////////////
 
 particle.prototype=new obstacle();
 bombb.prototype=new obstacle();
+seeker.prototype=new obstacle();
 
 //Spawning function////////////////////////////////////////////////////////////
 
@@ -134,10 +151,14 @@ var makeObstacle=function(){
 		else if(random(0,1)<0.8){
 			obstacleList.unshift(new obstacle());
 		}
-		else{
+		else if(random(0,1)<0.9){
 			obstacleList.unshift(new bombb());
 			
 		}
+		else{
+			obstacleList.unshift(new seeker());
+		}
+		
 		
 		
 	}
