@@ -104,7 +104,7 @@ function bombb(){
 			background(255,0,0);
 			for(var i=0;i<obSpeed*10;i+=1){
 				
-				new particle(random(0,width),random(0,height),random(-3,3),random(-3,3))
+				obstacleList.unshift(new particle(this.x,this.y,random(-3,3),random(-3,3)));
 			}
 			this.used=true;
 			bomb.play('blast');	
@@ -127,10 +127,10 @@ bombb.prototype=new obstacle();
 
 var makeObstacle=function(){
 	if(random(0,1)<spawnChance){
-		if(random(0,1)<1.0){
+		if(random(0,1)<0.1){
 			obstacleList.unshift(new particle(random(0,width),random(0,height),random(-3,3),random(-3,3)));
 		}
-		else if(random(0,1)<0.0){
+		else if(random(0,1)<0.1){
 			obstacleList.unshift(new obstacle());
 		}
 		else{
