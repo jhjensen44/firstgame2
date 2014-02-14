@@ -211,9 +211,11 @@ void draw(){
 	}
 	line(0,0,width,0);
 	line(0,0,0,height);
+	line(0,height-1,width-1,height-1);
+	line(width-1,0,height-1,width-1);
 	fill(0,0,0);
 	text(health,200,200);
-	text(obstacleList.length,100,100);
+	//text(obstacleList.length,100,100);
 	
 	
 
