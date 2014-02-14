@@ -44,6 +44,7 @@ var bomb = new Howl({
 //Ball types///////////////////////////////////////////////////////////
 //////Regular///////////////////////////////////////////////////////////
 function obstacle(){
+	this.detectRadius=10;
 	this.used=false;
 	this.x=width;
 	this.y=random(0,height);
@@ -54,7 +55,7 @@ function obstacle(){
 		ellipse(this.x,this.y,10,10);
 	}
 	this.detect=function(){
-		if (sqrt(sq(y-this.y)+sq(x-this.x))<10 &&!this.used){
+		if (sqrt(sq(y-this.y)+sq(x-this.x))<this.detectRadius &&!this.used){
 			background(255,0,0);
 			health -=1;
 			this.used=true;
@@ -71,7 +72,7 @@ function obstacle(){
 //////Particle,random speed, used in bomb///////////////////////////////////////////
 
 function particle(xOrigin,yOrigin,xSpeed,ySpeed){
-	
+	this.detectRadius=9;
 	this.move=function(){
 		this.y+=ySpeed;
 		this.x+=xSpeed;
@@ -195,6 +196,7 @@ void draw(){
 		textAlign(CENTER,CENTER);
 		text("GAME OVER",width/2,height/2);
 		text("Score: "+score,width/2,height/2+30);
+		Howler.mute();
 	}
 
 	fill(0,0,0);
