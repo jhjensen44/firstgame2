@@ -23,6 +23,7 @@ var health = 40;
 var spawnChance;
 var particleList[];
 var cpu = false;
+var grounded = false;
 
 //   Sound definitions   //////////////////////////////////////////////////////////
 var sound = new Howl({
@@ -123,11 +124,21 @@ function seeker(){
 	this.colour= color(random(0,255),random(0,255),random(0,255));
 	this.move=function(){
 		this.x-=obSpeed;
-		if(y>this.y){
-			this.y+=0.3;
+		if(grounded===false){
+			if(y>this.y){
+				this.y+=0.3;
+			}
+			else{
+				this.y+=-0.3;
+			}
 		}
 		else{
-			this.y+=-0.3;
+			if(y>this.y){
+				this.y+=2;
+			}
+			else{
+				this.y+=-2;
+			}
 		}
 	}
 	
@@ -191,7 +202,14 @@ void draw(){
 
 
 
-	if(y>ground)dy=0;
+	if(y>ground){
+		dy=0;
+		grounded=true;
+	}
+	else{
+		grounded = false;
+	}
+		
 
 	if(keyCode===UP&&keyPressed){
 		Flying=false;
