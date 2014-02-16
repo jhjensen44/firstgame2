@@ -6,7 +6,7 @@ noFill();
 //   Variables  //////////////////////////////////////////////////////////////
 /* @pjs preload="jet.png"; */
 /* @pjs preload="flyjet.gif"; */
-
+var onGroundBounceValue=0;
 var Flying=true;
 imageMode(CENTER);
 var jet = loadImage("jet.png");
@@ -16,14 +16,17 @@ var obstacleList=[];
 var ground=500;
 var y =100;
 var dy=0;
-var dx = 2;
+var dx = 0;
 var x = width/4;
 var obSpeed=1;
-var health = 40;
+var health = 4000;
 var spawnChance;
 var particleList[];
 var cpu = false;
 var grounded = false;
+var sideMode=false;
+background=document.getElementById("back");
+
 
 //   Sound definitions   //////////////////////////////////////////////////////////
 var sound = new Howl({
@@ -60,7 +63,8 @@ function obstacle(){
 			background(255,0,0);
 			health -=1;
 			this.used=true;
-			bomb.play('blast');	
+			bomb.play('blast');
+//			background.style.background-color:red;	
 		}
 	}
 	this.all=function(){
@@ -200,10 +204,21 @@ void draw(){
 		
 	};
 
-
-
+	if(sideMode){
+		if(keyCode===LEFT&&keyPressed){
+		
+			dx+=-0.1;
+		}
+		if(keyCode===RIGHT&&keyPressed){
+		
+			dx+=0.1;
+		}
+		if(x<0||x>600){
+			dx*=-1;
+		}
+	}
 	if(y>ground){
-		dy=0;
+		dy=onGroundBounceValue;
 		grounded=true;
 	}
 	else{
@@ -223,10 +238,14 @@ void draw(){
 	if (y<0)dy=20;
 
 	if(y<ground)dy+=0.3;
-
+	x+=dx;
 	y+=dy;
-
+	if(keyCode===70)onGroundBounceValue =-17.1655;
+	if(keyCode===71)onGroundBounceValue =0;
 	if(keyCode===68)health = 0;
+	if(keyCode===72)sideMode=true;
+	if(keyCode===74)dx/=1.1;
+	if(keyCode===75)obSpeed+=0.11;
 	score+=1;
 	if(health<=0){
 		noLoop();
@@ -253,7 +272,7 @@ void draw(){
 	line(0,height-1,width-1,height-1);
 	line(width-1,0,height-1,width-1);
 	fill(0,0,0);
-	text(health,200,200);
+	text(keyCode,200,200);
 	//text(obstacleList.length,100,100);
 	
 	
